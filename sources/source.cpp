@@ -147,4 +147,10 @@ public:
         cout <<  endl;
     }
 };
-#endif // INCLUDE_HEADER_HPP_
+#endif // INCLUDE_HEADER_HPP_\
+
+int main() {
+    Experiment one(32, 256, 8192);
+    one.start();
+    return 0;
+}
