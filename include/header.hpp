@@ -23,7 +23,7 @@ public:
     Experiment(int L1, int L2, int L3) {
         l1 = L1 * 1024; //kb ->byte
         l2 = L2 * 1024; // kb -> byte
-        l3 = L3 * 1024 * 1024; // mb -> byte
+        l3 = L3 * 1024; // kb -> byte
         int x = 1;
         int n = 0;
 
@@ -35,25 +35,38 @@ public:
             ++n;
         }
         meaningExp.push_back(1.5 * l3);
+        for(int i = 0; i < (int)meaningExp.size(); ++i){
+        cout << i << "exp number" << meaningExp[i] << endl;}
     }
 
+
     void createBuffer(unsigned size_exp) {
+        cout << "create" << endl;
         buffer = new unsigned char[size_exp];
     }
 
     void warmUp_cache(unsigned size_exp) {
+        cout << "halo warm" << endl;
+        unsigned tmp;
         for (unsigned j = 0; j < 10; ++j) {
             for (unsigned n = 0; n < size_exp; ++n) {
-                buffer[n] = static_cast<char>(rand_r(&n) % 256 - 128);
+                tmp=n;
+                unsigned char temp = rand_r(&n) % 128;
+                n=tmp;
+                buffer[n] = temp;
+
             }
         }
+        cout << "end warm" << endl;
     }
 
     clock_t directPass(unsigned numberExp) {
         clock_t begin = clock();
+        unsigned tmp;
         for (int d = 0; d < 1000; ++d) {
             for (unsigned i = 0; i < meaningExp[numberExp]; ++i) {
-                buffer[i] = static_cast<char>(rand_r(&i) % 256 - 128);
+                tmp=i;
+                buffer[i] = static_cast<char>(rand_r(&tmp) % 256 - 128);
             }
         }
         clock_t end = clock();
@@ -101,7 +114,7 @@ public:
             const int ret = 1;
             const int run = 2;
             printTravel_order(pass);
-            for (int count = 0; count < 7; ++count) {
+            for (int count = 0; count < 11; ++count) {
                 clock_t time;
                 createBuffer(meaningExp[count]);
                 warmUp_cache(meaningExp[count]);
@@ -147,5 +160,4 @@ public:
         cout <<  endl;
     }
 };
-
-#endif // INCLUDE_HEADER_HPP_/
+#endif // INCLUDE_HEADER_HPP_
