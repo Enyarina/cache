@@ -35,7 +35,7 @@ public:
             ++n;
         }
         meaningExp.push_back(1.5 * l3);
-        for(int i = 0; i < (int)meaningExp.size(); ++i){
+        for ( int i = 0; i < static_cast<int>(meaningExp.size()); ++i ) {
         cout << i << "exp number" << meaningExp[i] << endl;}
     }
 
@@ -50,11 +50,10 @@ public:
         unsigned tmp;
         for (unsigned j = 0; j < 10; ++j) {
             for (unsigned n = 0; n < size_exp; ++n) {
-                tmp=n;
+                tmp = n;
                 unsigned char temp = rand_r(&n) % 128;
-                n=tmp;
+                n = tmp;
                 buffer[n] = temp;
-
             }
         }
         cout << "end warm" << endl;
@@ -65,7 +64,7 @@ public:
         unsigned tmp;
         for (int d = 0; d < 1000; ++d) {
             for (unsigned i = 0; i < meaningExp[numberExp]; ++i) {
-                tmp=i;
+                tmp = i;
                 buffer[i] = static_cast<char>(rand_r(&tmp) % 256 - 128);
             }
         }
